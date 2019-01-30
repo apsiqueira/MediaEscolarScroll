@@ -1,5 +1,6 @@
 package com.example.mediaescolarscroll;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,8 @@ public class PrimeiroBimestreActivity extends AppCompatActivity {
     private EditText media;
     private EditText situcaoFinal;
     private Button btnCalcular;
+    private  Button btnVoltar;
+    private Intent intent;
 
 
 
@@ -38,6 +41,17 @@ public class PrimeiroBimestreActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+        btnVoltar=findViewById(R.id.btnVoltar);
+
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         btnCalcular.setOnClickListener(new View.OnClickListener() {

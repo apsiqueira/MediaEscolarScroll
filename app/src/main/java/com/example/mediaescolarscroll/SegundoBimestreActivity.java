@@ -28,7 +28,7 @@ public class SegundoBimestreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_primeiro_bimestre);
+        setContentView(R.layout.activity_segundo_bimestre);
         nomeMateria=findViewById(R.id.editTextMateria);
         notaProva=findViewById(R.id.editTextNotaProva);
         notaTrabalho=findViewById(R.id.editTextNotaTrabalho);

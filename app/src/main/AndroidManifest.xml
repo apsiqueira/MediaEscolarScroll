@@ -20,21 +20,21 @@
             </intent-filter>
         </activity>
         <activity
-        android:name=".PrimeiroBimestreActivity"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".PrimeiroBimestreActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SegundoBimestreActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TerceiroBimestreActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".QuartoBimestreActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
