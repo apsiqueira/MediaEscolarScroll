@@ -2,11 +2,13 @@ package com.example.mediaescolarscroll;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity  {
     private Button btnTreceiroBimestre;
     private Button btnQuartoBimestre;
     Intent intent;
+    public static SharedPreferences sharedMediaPref;
+    public static final String CHAVE_MEDIA_PREFERENCIA="mediaEscolarPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,34 +39,35 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-        btnPrimeiroBimestre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent=new Intent(getApplicationContext(),PrimeiroBimestreActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnSegundoBimestre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent=new Intent(getApplicationContext(),SegundoBimestreActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnTreceiroBimestre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent=new Intent(getApplicationContext(),TerceiroBimestreActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnQuartoBimestre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent=new Intent(getApplicationContext(),QuartoBimestreActivity.class);
-                startActivity(intent);
-            }
-        });
+
+    btnPrimeiroBimestre.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            intent = new Intent(getApplicationContext(), PrimeiroBimestreActivity.class);
+            startActivity(intent);
+        }
+    });
+    btnSegundoBimestre.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            intent = new Intent(getApplicationContext(), SegundoBimestreActivity.class);
+            startActivity(intent);
+        }
+    });
+    btnTreceiroBimestre.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            intent = new Intent(getApplicationContext(), TerceiroBimestreActivity.class);
+            startActivity(intent);
+        }
+    });
+    btnQuartoBimestre.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            intent = new Intent(getApplicationContext(), QuartoBimestreActivity.class);
+            startActivity(intent);
+        }
+    });
 
 
 
@@ -105,6 +110,8 @@ public class MainActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
 

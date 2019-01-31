@@ -180,7 +180,7 @@
         android:layout_marginRight="80dp"
         android:text="@string/btnCalcular" />
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnVoltarTerceiro"
         android:layout_width="30dp"
         android:layout_height="50dp"
         android:layout_below="@+id/editTextMedia"
@@ -194,5 +194,6 @@
         android:layout_marginEnd="-124dp"
         android:layout_marginRight="-124dp"
         android:text="@string/btnVoltar" />
+ >
 
 </RelativeLayout>
