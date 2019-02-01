@@ -50,7 +50,8 @@
                 android:layout_height="70dp"
                 android:textColor="#ffffff"
                 android:background="@drawable/btn_personalizado"
-                android:enabled="false"
+
+
 
                 android:text="@string/segundoBimestre"
 
@@ -62,21 +63,30 @@
                 android:layout_height="70dp"
                 android:textColor="#ffffff"
                 android:background="@drawable/btn_personalizado"
-                android:enabled="false"
+
 
                 android:text="@string/terceiroBimestre"
 
                 />
 
             <Button
-                android:id="@+id/btnQuartoBimestre"
+            android:id="@+id/btnQuartoBimestre"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/btn_personalizado"
+
+            android:text="@string/quartoBimestre"
+
+            />
+            <Button
+                android:id="@+id/btnResult"
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
                 android:textColor="#ffffff"
                 android:background="@drawable/btn_personalizado"
-                android:enabled="false"
-
-                android:text="@string/quartoBimestre"
+                android:clickable="false"
+                android:text="@string/btnResultado"
 
                 />
 

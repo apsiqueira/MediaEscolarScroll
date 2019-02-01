@@ -179,21 +179,7 @@
         android:layout_marginEnd="80dp"
         android:layout_marginRight="80dp"
         android:text="@string/btnCalcular" />
-    <Button
-        android:id="@+id/btnVoltarSegundo"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/editTextMedia"
-        android:layout_alignEnd="@+id/editTextSituacao"
-        android:layout_alignRight="@+id/editTextSituacao"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="222dp"
-        android:layout_marginLeft="222dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="-124dp"
-        android:layout_marginRight="-124dp"
-        android:text="@string/btnVoltar" />
+
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="30dp"

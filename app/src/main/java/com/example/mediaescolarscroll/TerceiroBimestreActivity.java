@@ -1,6 +1,7 @@
 package com.example.mediaescolarscroll;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class TerceiroBimestreActivity extends AppCompatActivity {
 
@@ -22,6 +24,10 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
     private Button btnCalcular;
     private Button btnVoltar;
     private Intent intent;
+    private Boolean validacaoTerceiroBimestre = false;
+    private double notaProvaDouble,
+            notaTrabalhoDouble,
+            mediaParcial;
 
 
 
@@ -31,7 +37,7 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_primeiro_bimestre);
+        setContentView(R.layout.activity_terceiro_bimestre);
         nomeMateria=findViewById(R.id.editTextMateria);
         notaProva=findViewById(R.id.editTextNotaProva);
         notaTrabalho=findViewById(R.id.editTextNotaTrabalho);
@@ -44,60 +50,6 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
         btnVoltar=findViewById(R.id.btnVoltarTerceiro);
 
 
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent=new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-        btnCalcular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(nomeMateria.getText().toString().length()>0 && notaProva.getText().toString().length()>0 && notaTrabalho.getText().toString().length()>0){
-                    double notaProvaDouble=Double.parseDouble(notaProva.getText().toString());
-                    double notaTrabalhoDouble=Double.parseDouble(notaTrabalho.getText().toString());
-                    double mediaFinal=(notaProvaDouble+notaTrabalhoDouble)/2;
-                    if(mediaFinal>=6){
-                        media.setText(String.valueOf(mediaFinal));
-                        situcaoFinal.setText("Aprovado");
-                    }
-                    else{
-                        media.setText(String.valueOf(mediaFinal));
-                        situcaoFinal.setText("Reprovado");
-                    }
-
-
-                }
-
-                if(nomeMateria.getText().toString().length()==0 ){
-                    nomeMateria.setError("Digite a materia");
-                    nomeMateria.requestFocus();
-                }
-                if(notaProva.getText().toString().length()==0){
-                    notaProva.setError("Digite a nota da Prova");
-                    notaProva.requestFocus();
-
-                }
-                if(notaTrabalho.getText().toString().length()==0){
-                    notaTrabalho.setError("Digite a nota do Trabalho");
-                    notaTrabalho.requestFocus();
-                }
-
-
-            }
-        });
-
-
-
-
-
-
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +58,84 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        try{
+
+
+            btnVoltar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    intent=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            btnCalcular.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    if (nomeMateria.getText().toString().length() > 0 && nomeMateria.getText().toString().length() <= 10 && notaProva.getText().toString().length() > 0 &&
+                            notaTrabalho.getText().toString().length() > 0) {
+                        notaProvaDouble = Double.parseDouble(notaProva.getText().toString());
+                        notaTrabalhoDouble = Double.parseDouble(notaTrabalho.getText().toString());
+
+                        if (notaTrabalhoDouble <= 10 && notaProvaDouble <= 10) {
+                            mediaParcial = (notaProvaDouble + notaTrabalhoDouble) / 2;
+
+
+                            if (mediaParcial >= 6 ) {
+                                media.setText(String.valueOf(mediaParcial));
+                                situcaoFinal.setText("Aprovado");
+
+
+                            }
+                            else {
+                                media.setText(String.valueOf(mediaParcial));
+                                situcaoFinal.setText("Reprovado");
+
+                            }
+                            validacaoTerceiroBimestre = true;
+                            salvarSharedPreferences();
+
+
+
+                        } else if (notaProvaDouble > 10 && notaTrabalhoDouble > 10) {
+                            Toast.makeText(getApplicationContext(), "Notas nao podem ser maior que 10 pts", Toast.LENGTH_SHORT).show();
+
+                        } else if (notaTrabalhoDouble > 10) {
+                            notaTrabalho.requestFocus();
+                            notaTrabalho.setError("nota max 10pts");
+                        } else if (notaProvaDouble > 10) {
+                            notaProva.requestFocus();
+                            notaProva.setError("nota max 10pts");
+                        }
+
+
+                    }  else if (nomeMateria.getText().toString().length() == 0 || nomeMateria.getText().toString().length() > 10) {
+                        nomeMateria.setError("Digite a materia com max 10 digitos");
+                        nomeMateria.requestFocus();
+                    } else if (notaProva.getText().toString().length() == 0) {
+                        notaProva.setError("Digite a nota max 10pts");
+                        notaProva.requestFocus();
+
+
+                    } else if (notaTrabalho.getText().toString().length() == 0) {
+                        notaTrabalho.setError("Digite a nota do trabalho");
+                        notaTrabalho.requestFocus();
+                    }
+
+
+                }
+
+            });
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+
+        }
+
+
 
 
 
@@ -138,5 +168,33 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void salvarSharedPreferences(){
+        MainActivity.sharedMediaPref=getSharedPreferences(MainActivity.CHAVE_MEDIA_PREFERENCIA,0);
+
+        SharedPreferences.Editor editor=MainActivity.sharedMediaPref.edit();
+        editor.putString("nomeMateriaTerceiroBimestre", this.nomeMateria.getText().toString());
+        editor.putString("notaProvaTerceiroBimestre", Double.toString(this.notaProvaDouble));
+        editor.putString("notaTrabalhoTerceiroBimestre", Double.toString(this.notaTrabalhoDouble));
+        editor.putString("mediaTerceiroBimestre", Double.toString(this.mediaParcial));
+        editor.putString("situacaoFinalTerceiroBimestre", this.situcaoFinal.getText().toString());
+        editor.putString("validacaoTerceiroBimestre", this.validacaoTerceiroBimestre.toString());
+
+        editor.commit();
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
 
 }

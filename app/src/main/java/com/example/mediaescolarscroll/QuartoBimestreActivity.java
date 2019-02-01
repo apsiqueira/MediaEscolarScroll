@@ -1,6 +1,7 @@
 package com.example.mediaescolarscroll;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class QuartoBimestreActivity extends AppCompatActivity {
 
@@ -22,6 +24,10 @@ public class QuartoBimestreActivity extends AppCompatActivity {
     private Button btnCalcular;
     private Button btnVoltar;
     private Intent intent;
+    private Boolean validacaoQuartoBimestre = false;
+    private double notaProvaDouble,
+            notaTrabalhoDouble,
+            mediaParcial;
 
 
 
@@ -31,7 +37,7 @@ public class QuartoBimestreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_primeiro_bimestre);
+        setContentView(R.layout.activity_quarto_bimestre);
         nomeMateria=findViewById(R.id.editTextMateria);
         notaProva=findViewById(R.id.editTextNotaProva);
         notaTrabalho=findViewById(R.id.editTextNotaTrabalho);
@@ -43,6 +49,8 @@ public class QuartoBimestreActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         btnVoltar=findViewById(R.id.btnVoltarQuarto);
 
+        try{
+
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,47 +61,70 @@ public class QuartoBimestreActivity extends AppCompatActivity {
             }
         });
 
-
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(nomeMateria.getText().toString().length()>0 && notaProva.getText().toString().length()>0 && notaTrabalho.getText().toString().length()>0){
-                    double notaProvaDouble=Double.parseDouble(notaProva.getText().toString());
-                    double notaTrabalhoDouble=Double.parseDouble(notaTrabalho.getText().toString());
-                    double mediaFinal=(notaProvaDouble+notaTrabalhoDouble)/2;
-                    if(mediaFinal>=6){
-                        media.setText(String.valueOf(mediaFinal));
-                        situcaoFinal.setText("Aprovado");
+
+                if (nomeMateria.getText().toString().length() > 0 && nomeMateria.getText().toString().length() <= 10 && notaProva.getText().toString().length() > 0 &&
+                        notaTrabalho.getText().toString().length() > 0) {
+                    notaProvaDouble = Double.parseDouble(notaProva.getText().toString());
+                    notaTrabalhoDouble = Double.parseDouble(notaTrabalho.getText().toString());
+
+                    if (notaTrabalhoDouble <= 10 && notaProvaDouble <= 10) {
+                        mediaParcial = (notaProvaDouble + notaTrabalhoDouble) / 2;
+
+
+                        if (mediaParcial >= 6 ) {
+                            media.setText(String.valueOf(mediaParcial));
+                            situcaoFinal.setText("Aprovado");
+
+
+                        }
+                        else {
+                            media.setText(String.valueOf(mediaParcial));
+                            situcaoFinal.setText("Reprovado");
+
+                        }
+                        validacaoQuartoBimestre = true;
+                        salvarSharedPreferences();
+
+
+
+                    } else if (notaProvaDouble > 10 && notaTrabalhoDouble > 10) {
+                        Toast.makeText(QuartoBimestreActivity.this, "Notas nao podem ser maior que 10 pts", Toast.LENGTH_SHORT).show();
+
+                    } else if (notaTrabalhoDouble > 10) {
+                        notaTrabalho.requestFocus();
+                        notaTrabalho.setError("nota max 10pts");
+                    } else if (notaProvaDouble > 10) {
+                        notaProva.requestFocus();
+                        notaProva.setError("nota max 10pts");
                     }
-                    else{
-                        media.setText(String.valueOf(mediaFinal));
-                        situcaoFinal.setText("Reprovado");
-                    }
 
 
-                }
-
-                if(nomeMateria.getText().toString().length()==0 ){
-                    nomeMateria.setError("Digite a materia");
+                }  else if (nomeMateria.getText().toString().length() == 0 || nomeMateria.getText().toString().length() > 10) {
+                    nomeMateria.setError("Digite a materia com max 10 digitos");
                     nomeMateria.requestFocus();
-                }
-                if(notaProva.getText().toString().length()==0){
-                    notaProva.setError("Digite a nota da Prova");
+                } else if (notaProva.getText().toString().length() == 0) {
+                    notaProva.setError("Digite a nota max 10pts");
                     notaProva.requestFocus();
 
-                }
-                if(notaTrabalho.getText().toString().length()==0){
-                    notaTrabalho.setError("Digite a nota do Trabalho");
+
+                } else if (notaTrabalho.getText().toString().length() == 0) {
+                    notaTrabalho.setError("Digite a nota do trabalho");
                     notaTrabalho.requestFocus();
                 }
 
 
             }
+
         });
+    } catch (Exception e) {
+        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
 
-
+    }
 
 
 
@@ -137,6 +168,27 @@ public class QuartoBimestreActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void salvarSharedPreferences(){
+
+
+        MainActivity.sharedMediaPref=getSharedPreferences(MainActivity.CHAVE_MEDIA_PREFERENCIA,0);
+
+        SharedPreferences.Editor editor=MainActivity.sharedMediaPref.edit();
+        editor.putString("nomeMateriaQuartoBimestre", this.nomeMateria.getText().toString());
+        editor.putString("notaProvaQuartoBimestre", Double.toString(this.notaProvaDouble));
+        editor.putString("notaTrabalhoQuartoBimestre", Double.toString(this.notaTrabalhoDouble));
+        editor.putString("mediaQuartoBimestre", Double.toString(this.mediaParcial));
+        editor.putString("situacaoFinalQuartoBimestre", this.situcaoFinal.getText().toString());
+        editor.putString("validacaoQuartoBimestre", this.validacaoQuartoBimestre.toString());
+
+        editor.commit();
+
+
+
+
+
     }
 
 }

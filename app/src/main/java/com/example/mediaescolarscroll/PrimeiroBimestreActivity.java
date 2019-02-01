@@ -66,39 +66,40 @@ public class PrimeiroBimestreActivity extends AppCompatActivity {
                             notaTrabalho.getText().toString().length() > 0) {
                         notaProvaDouble = Double.parseDouble(notaProva.getText().toString());
                         notaTrabalhoDouble = Double.parseDouble(notaTrabalho.getText().toString());
-                        mediaParcial = (notaProvaDouble + notaTrabalhoDouble) / 2;
+
+                        if (notaTrabalhoDouble <= 10 && notaProvaDouble <= 10) {
+                            mediaParcial = (notaProvaDouble + notaTrabalhoDouble) / 2;
 
 
-                        if (mediaParcial >= 6 && mediaParcial <= 10) {
-                            media.setText(String.valueOf(mediaParcial));
-                            situcaoFinal.setText("Aprovado");
+                            if (mediaParcial >= 6 ) {
+                                media.setText(String.valueOf(mediaParcial));
+                                situcaoFinal.setText("Aprovado");
 
 
-                        } else if (mediaParcial > 10) {
-                            if (notaTrabalhoDouble > 10 && notaProvaDouble > 10) {
+                            }
+                            else {
+                                media.setText(String.valueOf(mediaParcial));
+                                situcaoFinal.setText("Reprovado");
+
+                            }
+                            validacaoPrimieroBimestre = true;
+                            salvarSharedPreferences();
 
 
+
+                        } else if (notaProvaDouble > 10 && notaTrabalhoDouble > 10) {
                                 Toast.makeText(PrimeiroBimestreActivity.this, "Notas nao podem ser maior que 10 pts", Toast.LENGTH_SHORT).show();
 
-                            } else if (notaTrabalhoDouble > 10) {
-                                notaTrabalho.requestFocus();
-                                notaTrabalho.setError("nota max 10pts");
-                            } else if (notaProvaDouble > 10) {
+                        } else if (notaTrabalhoDouble > 10) {
+                            notaTrabalho.requestFocus();
+                            notaTrabalho.setError("nota max 10pts");
+                        } else if (notaProvaDouble > 10) {
                                 notaProva.requestFocus();
                                 notaProva.setError("nota max 10pts");
-                            }
-
-
-                        } else {
-                            media.setText(String.valueOf(mediaParcial));
-                            situcaoFinal.setText("Reprovado");
-
                         }
 
-                        validacaoPrimieroBimestre = true;
-                        salvarSharedPreferences();
 
-                    } else if (nomeMateria.getText().toString().length() == 0 || nomeMateria.getText().toString().length() > 10) {
+                    }  else if (nomeMateria.getText().toString().length() == 0 || nomeMateria.getText().toString().length() > 10) {
                         nomeMateria.setError("Digite a materia com max 10 digitos");
                         nomeMateria.requestFocus();
                     } else if (notaProva.getText().toString().length() == 0) {
@@ -131,6 +132,7 @@ public class PrimeiroBimestreActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     @Override
@@ -161,16 +163,17 @@ public class PrimeiroBimestreActivity extends AppCompatActivity {
         MainActivity.sharedMediaPref = getSharedPreferences(MainActivity.CHAVE_MEDIA_PREFERENCIA, 0);
         SharedPreferences.Editor editor = MainActivity.sharedMediaPref.edit();
 
-        editor.putString("nomeMateria", this.nomeMateria.getText().toString());
-        editor.putString("notaProva", Double.toString(this.notaProvaDouble));
-        editor.putString("notaTrabalho", Double.toString(this.notaTrabalhoDouble));
-        editor.putString("media", Double.toString(this.mediaParcial));
-        editor.putString("situacaoFinal", this.situcaoFinal.getText().toString());
-        editor.putString("validacaoPrimeiroBimestre", this.validacaoPrimieroBimestre.toString());
+        editor.putString("nomeMateriaPrimeiroBimestre", this.nomeMateria.getText().toString());
+        editor.putString("notaProvaPrimeiroBimestre", Double.toString(this.notaProvaDouble));
+        editor.putString("notaTrabalhoPrimeiroBimestre", Double.toString(this.notaTrabalhoDouble));
+        editor.putString("mediaPrimeroBimestre", Double.toString(this.mediaParcial));
+        editor.putString("situacaoFinalPrimeiroBimestre", this.situcaoFinal.getText().toString());
+        editor.putBoolean("validacaoPrimeiroBimestre", this.validacaoPrimieroBimestre);
 
         editor.commit();
 
 
     }
+
 
 }
