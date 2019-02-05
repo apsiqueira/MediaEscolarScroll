@@ -24,7 +24,7 @@ public class SegundoBimestreActivity extends AppCompatActivity {
     private Button btnCalcular;
     private Button btnVoltar;
     private Intent intent;
-    private Boolean validacaoSegundoBimestre = false;
+    private Boolean validacaoSegundoBimestre=false;
     private double notaProvaDouble,
             notaTrabalhoDouble,
             mediaParcial;
@@ -187,7 +187,8 @@ public class SegundoBimestreActivity extends AppCompatActivity {
         editor.putString("notaTrabalhoSegundoBimestre", Double.toString(this.notaTrabalhoDouble));
         editor.putString("mediaSegundoBimestre", Double.toString(this.mediaParcial));
         editor.putString("situacaoFinalSegundoBimestre", this.situcaoFinal.getText().toString());
-        editor.putString("validacaoSegundoBimestre", this.validacaoSegundoBimestre.toString());
+        editor.putBoolean("validacaoSegundoBimestre", this.validacaoSegundoBimestre);
+
 
         editor.commit();
 

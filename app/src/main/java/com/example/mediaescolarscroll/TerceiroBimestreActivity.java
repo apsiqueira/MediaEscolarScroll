@@ -179,7 +179,7 @@ public class TerceiroBimestreActivity extends AppCompatActivity {
         editor.putString("notaTrabalhoTerceiroBimestre", Double.toString(this.notaTrabalhoDouble));
         editor.putString("mediaTerceiroBimestre", Double.toString(this.mediaParcial));
         editor.putString("situacaoFinalTerceiroBimestre", this.situcaoFinal.getText().toString());
-        editor.putString("validacaoTerceiroBimestre", this.validacaoTerceiroBimestre.toString());
+        editor.putBoolean("validacaoTerceiroBimestre", this.validacaoTerceiroBimestre);
 
         editor.commit();
 

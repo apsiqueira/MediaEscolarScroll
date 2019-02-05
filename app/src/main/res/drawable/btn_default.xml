@@ -20,7 +20,7 @@
 
 
     </padding>
-    <stroke android:width="7dip" android:color="#F2F4F4">
+    <stroke android:width="1dip" android:color="#F2F4F4">
 
 
     </stroke>

@@ -31,7 +31,7 @@
         android:layout_marginStart="159dp"
         android:layout_marginLeft="159dp"
         android:layout_marginTop="31dp"
-        android:text="@string/primiroBimestre" />
+        android:text="@string/primeiroBimestre" />
 
     <TextView
         android:id="@+id/TxtTituloMateria"
@@ -162,6 +162,7 @@
         android:layout_marginTop="52dp"
         android:layout_toEndOf="@+id/textViewTituloMedia"
         android:layout_toRightOf="@+id/textViewTituloMedia"
+
         android:text="Situação" />
 
     <Button

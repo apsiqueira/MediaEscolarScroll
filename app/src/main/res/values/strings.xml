@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Media Escolar</string>
     <string name="action_sair">Sair</string>
-    <string name="primiroBimestre">1º Bimestre</string>
+    <string name="primeiroBimestre">1º Bimestre</string>
     <string name="segundoBimestre">2º Bimestre</string>
     <string name="terceiroBimestre">3º Bimestre</string>
     <string name="quartoBimestre">4º Bimestre</string>

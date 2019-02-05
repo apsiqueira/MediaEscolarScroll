@@ -181,7 +181,7 @@ public class QuartoBimestreActivity extends AppCompatActivity {
         editor.putString("notaTrabalhoQuartoBimestre", Double.toString(this.notaTrabalhoDouble));
         editor.putString("mediaQuartoBimestre", Double.toString(this.mediaParcial));
         editor.putString("situacaoFinalQuartoBimestre", this.situcaoFinal.getText().toString());
-        editor.putString("validacaoQuartoBimestre", this.validacaoQuartoBimestre.toString());
+        editor.putBoolean("validacaoQuartoBimestre", this.validacaoQuartoBimestre);
 
         editor.commit();
 
